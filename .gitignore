@@ -59,3 +59,8 @@ Thumbs.db
 # Project specific
 frontend.zip
 .agents/
+*.pdf
+*.pptx
+*.ppt
+*.docx
+*.doc
