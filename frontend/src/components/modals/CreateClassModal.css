@@ -1,0 +1,118 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.modal-content {
+    background: var(--lumina-glass, #ffffff);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--lumina-border, #e2e8f0);
+    border-radius: 20px;
+    padding: 32px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    font-family: inherit;
+    color: var(--lumina-text-main, #0f172a);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.modal-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.modal-description {
+    font-size: 13px;
+    color: var(--auth-text-muted);
+    margin: 0 0 24px 0;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--lumina-text-muted, #64748b);
+    margin-bottom: 8px;
+}
+.form-group input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--lumina-border, rgba(0,0,0,0.08));
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--lumina-text-main, #0f172a);
+    font-family: inherit;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+.form-group input:focus {
+    border-color: var(--auth-accent-1);
+    box-shadow: 0 0 12px var(--auth-accent-1-glow);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-cancel {
+    background: transparent;
+    border: 1px solid var(--lumina-border, rgba(0,0,0,0.08));
+    color: var(--lumina-text-main, #0f172a);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+}
+.btn-cancel:hover { background: rgba(0, 0, 0, 0.03); }
+
+.btn-action-primary {
+    background: #18181B;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+.btn-action-primary:hover:not(:disabled) {
+    background: #27272A;
+    box-shadow: 0 4px 12px rgba(24, 24, 27, 0.25);
+    transform: translateY(-1px);
+}
+.btn-action-primary:disabled {
+    background: #d4d4d8;
+    color: #71717a;
+    cursor: not-allowed;
+    opacity: 1;
+}

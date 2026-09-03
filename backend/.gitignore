@@ -1,0 +1,15 @@
+# Python virtual environment — never commit this
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# SQLite database — your actual data, backup separately
+assessiq.db
+
+# Environment variables — NEVER commit, contains secrets
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
