@@ -5,25 +5,22 @@
  */
 import OpenAI from "openai";
 
-let ai = null;
 const OPENROUTER_URL = "https://openrouter.ai/api/v1";
-const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY || "";
-
-try {
-    if (apiKey) {
-        ai = new OpenAI({ 
-            baseURL: OPENROUTER_URL,
-            apiKey: apiKey,
-            dangerouslyAllowBrowser: true 
-        });
-    } else {
-        console.warn("VITE_OPENROUTER_API_KEY is not set. AI will fail.");
-    }
-} catch (e) {
-    console.error("Failed to initialize OpenRouter:", e);
-}
-
 const OPENROUTER_MODEL = "google/gemini-2.5-flash";
+
+const getApiKey = () => {
+    return import.meta.env.VITE_OPENROUTER_API_KEY || "";
+};
+
+const getAIClient = () => {
+    const key = getApiKey();
+    if (!key) return null;
+    return new OpenAI({
+        baseURL: OPENROUTER_URL,
+        apiKey: key,
+        dangerouslyAllowBrowser: true
+    });
+};
 
 export const aiService = {
     /**
@@ -31,6 +28,7 @@ export const aiService = {
      * Used in: ReviewCenterModal
      */
     async analyzeSubjectiveAnswer(questionText, studentAnswer, maxMarks) {
+        const apiKey = getApiKey();
         try {
             const prompt = `You are an expert teacher grading a student's answer.
 Question: "${questionText}"
@@ -104,7 +102,8 @@ The JSON object MUST have this exact structure:
      * Uses OpenRouter API to answer questions based on the user's role and live localStorage data.
      */
     async askTutor(question, userRole, contextData) {
-        if (!ai) return "OpenRouter API is not configured.";
+        const ai = getAIClient();
+        if (!ai) return "OpenRouter API is not configured. Please check your VITE_OPENROUTER_API_KEY environment variable.";
         
         try {
             const systemPrompt = `You are the AssessIQ AI Tutor. The user you are talking to is a(n): ${userRole}. 
@@ -130,7 +129,8 @@ Answer their question accurately based on this data. Be helpful, concise, and pr
      * Powered by OpenRouter API.
      */
     async generateQuestions(title, type, difficulty, totalMarks, rawTextContext = null) {
-        if (!ai) throw new Error("OpenRouter API key is missing. Check your .env file.");
+        const ai = getAIClient();
+        if (!ai) throw new Error("OpenRouter API key is missing. Check your VITE_OPENROUTER_API_KEY.");
 
         try {
             const numQs = totalMarks <= 20 ? 3 : totalMarks <= 50 ? 5 : 8;
